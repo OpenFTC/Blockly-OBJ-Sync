@@ -1,9 +1,14 @@
-package org.openftc.blocklyObjSync.ui;
+package org.openftc.blocklyObjSync.ui.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import org.openftc.blocklyObjSync.R;
 import org.openftc.blocklyObjSync.backend.Utils;
+import org.openftc.blocklyObjSync.ui.UI_Utils;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -30,5 +35,27 @@ public class MainActivity extends AppCompatActivity
              */
             return;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.menu_activity_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id = item.getItemId();
+
+        if (id == R.id.aboutMenuItem)
+        {
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
