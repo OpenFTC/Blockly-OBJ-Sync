@@ -10,5 +10,12 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /*
+         * Set the status bar color to colorPrimaryDark
+         * No need to worry about checking API version
+         * since minSdk is 19
+         */
+        UI_Utils.colorStatusBar(this);
     }
 }
