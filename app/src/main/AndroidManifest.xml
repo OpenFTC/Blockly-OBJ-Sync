@@ -24,6 +24,8 @@
         </activity>
         <activity android:name=".ui.explorer.ExplorerActivity">
         </activity>
+        <activity android:name=".ui.activity.OpenSourceLicensesActivity">
+        </activity>
     </application>
 
 </manifest>

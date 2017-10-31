@@ -9,4 +9,5 @@
     <color name="colorTextPrimary">#ffffff</color>
     <color name="colorTextSecondary">#000000</color>
     <color name="colorAccent">#00c853</color>
+    <color name="lightGrey">#dcdcdc</color>
 </resources>
