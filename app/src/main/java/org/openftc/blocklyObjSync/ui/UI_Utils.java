@@ -3,6 +3,7 @@ package org.openftc.blocklyObjSync.ui;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.view.View;
@@ -13,9 +14,9 @@ import android.widget.FrameLayout;
 
 import org.openftc.blocklyObjSync.R;
 
-class UI_Utils
+public class UI_Utils
 {
-    static void showRcAppNotInstalledDaialog(final Activity activity)
+    public static void showRcAppNotInstalledDaialog(final Activity activity)
     {
         AlertDialog.Builder builder;
         builder = new AlertDialog.Builder(activity);
@@ -36,33 +37,17 @@ class UI_Utils
                 .show();
     }
 
-    static void colorStatusBar(Activity activity)
+    public static void colorStatusBar(Activity activity)
     {
         /*
          * Set the status bar color to colorPrimaryDark
-         * No need to worry about checking API version
-         * since minSdk is 19
          */
-
-        Window w = activity.getWindow();
-        w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        int statusBarHeight = getStatusBarHeight(activity);
-
-        View view = new View(activity);
-        view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        view.getLayoutParams().height = statusBarHeight;
-        ((ViewGroup) w.getDecorView()).addView(view);
-        view.setBackgroundColor(activity.getResources().getColor(R.color.colorPrimaryDark));
-    }
-
-    private static int getStatusBarHeight(Activity activity)
-    {
-        int result = 0;
-        int resourceId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
-            result = activity.getResources().getDimensionPixelSize(resourceId);
+            Window window = activity.getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(ContextCompat.getColor(activity, R.color.colorPrimaryDark));
         }
-        return result;
     }
 }
