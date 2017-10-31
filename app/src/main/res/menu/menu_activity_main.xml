@@ -7,4 +7,9 @@
         app:showAsAction="never"
         android:title="About" />
 
+    <item
+        android:id="@+id/preferencesMenuItem"
+        app:showAsAction="never"
+        android:title="Preferences" />
+
 </menu>

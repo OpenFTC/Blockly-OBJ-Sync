@@ -17,6 +17,8 @@
         </activity>
         <activity android:name=".ui.activity.AboutActivity">
         </activity>
+        <activity android:name=".ui.activity.PreferencesActivity">
+        </activity>
     </application>
 
 </manifest>
