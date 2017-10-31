@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import org.openftc.blocklyObjSync.R;
 import org.openftc.blocklyObjSync.backend.Utils;
 import org.openftc.blocklyObjSync.ui.UI_Utils;
+import org.openftc.blocklyObjSync.ui.explorer.ExplorerActivity;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity
         }
         else if(id == R.id.preferencesMenuItem)
         {
-            Intent intent = new Intent(this, PreferencesActivity.class);
+            Intent intent = new Intent(this, ExplorerActivity.class);
             startActivity(intent);
             return true;
         }
