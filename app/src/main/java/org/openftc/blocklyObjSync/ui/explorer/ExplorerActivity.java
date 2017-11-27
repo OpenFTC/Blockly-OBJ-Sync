@@ -44,6 +44,9 @@ public class ExplorerActivity extends AppCompatActivity implements ExplorerFragm
 {
 
     private static final int SHARE_REQUEST = 1;
+    public static final String KEY_FILE_CHOOSER_MODE = "fileChooserMode";
+    public static final int SHOW_ONBOTJ_FILE_CHOOSER = 1;
+    public static final int SHOW_BLOCKLY_FILE_CHOOSER = 2;
 
     private void showDirectory(String directory)
     {
@@ -82,9 +85,10 @@ public class ExplorerActivity extends AppCompatActivity implements ExplorerFragm
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Choose OpModes to share");
 
+        showDirectory(modeToDir(getIntent().getExtras().getInt(KEY_FILE_CHOOSER_MODE)));
+
         if (savedInstanceState == null)
         {
-            showDirectory(null);
             Toast.makeText(this, "Hello",
                            Toast.LENGTH_SHORT).show();
         }
@@ -118,9 +122,31 @@ public class ExplorerActivity extends AppCompatActivity implements ExplorerFragm
         }
     }
 
+    private String modeToDir(int mode)
+    {
+        if (mode == 1)
+        {
+            return "/sdcard/FIRST/java/src/org/firstinspires/ftc/teamcode/";
+        }
+        else if (mode == 2)
+        {
+            return null;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        finish();
+    }
+
     /*
-     * The method that's called when the user presses the title back button
-     */
+         * The method that's called when the user presses the title back button
+         */
     @Override
     public boolean onSupportNavigateUp()
     {

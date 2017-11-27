@@ -74,6 +74,17 @@ class DirectoryAdapter extends ArrayAdapter<File>
     private void init()
     {
         File[] files = new File(mDirectory).listFiles();
+        String[] tests = new String[files.length];
+
+        for (int i = 0; i < files.length; i++)
+        {
+            String name = files[i].getName();
+            if(name.endsWith(".java"))
+            {
+                tests[i] = name.substring(0, name.length() - 5);
+            }
+        }
+
         if (files == null)
         {
             //mListener.onError(mContext.getString(R.string.activity_explorer_error, mDirectory));
@@ -234,27 +245,6 @@ class DirectoryAdapter extends ArrayAdapter<File>
         {
             imageView.setImageResource(R.drawable.ic_file);
         }
-        /*Picasso.with(mContext)
-                .load(file)
-                .resizeDimen(R.dimen.explorer_icon_size, R.dimen.explorer_icon_size)
-                .centerCrop()
-                .placeholder(ContextCompat.getDrawable(
-                        mContext, file.isDirectory() ? R.drawable.ic_folder : R.drawable.ic_file
-                ))
-                .into(imageView, new Callback()
-                {
-                    @Override
-                    public void onSuccess()
-                    {
-                        // Remove the tint once the image loads
-                        imageView.setColorFilter(Color.argb(0, 0, 0, 0), PorterDuff.Mode.DST);
-                    }
-
-                    @Override
-                    public void onError()
-                    {
-                    }
-                });*/
         View spacer = view.findViewById(R.id.spacer);
         CheckBox checkBox = (CheckBox) view.findViewById(android.R.id.checkbox);
         if (mCheckboxes)
