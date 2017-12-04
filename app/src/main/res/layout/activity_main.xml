@@ -16,4 +16,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Blockly test"/>
+
+    <Button
+        android:id="@+id/configTestButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Config test"/>
 </LinearLayout>

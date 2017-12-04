@@ -47,6 +47,7 @@ public class ExplorerActivity extends AppCompatActivity implements ExplorerFragm
     public static final String KEY_FILE_CHOOSER_MODE = "fileChooserMode";
     public static final int SHOW_ONBOTJ_FILE_CHOOSER = 1;
     public static final int SHOW_BLOCKLY_FILE_CHOOSER = 2;
+    public static final int SHOW_XML_CONFIG_FILE_CHOOSER = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -73,13 +74,17 @@ public class ExplorerActivity extends AppCompatActivity implements ExplorerFragm
         if (directory != null)
         {
             int mode = 0;
-            if(directory.equals(modeToDir(1)))
+            if(directory.equals(modeToDir(SHOW_ONBOTJ_FILE_CHOOSER)))
             {
                 mode = SHOW_ONBOTJ_FILE_CHOOSER;
             }
-            else if(directory.equals(modeToDir(2)))
+            else if(directory.equals(modeToDir(SHOW_BLOCKLY_FILE_CHOOSER)))
             {
                 mode = SHOW_BLOCKLY_FILE_CHOOSER;
+            }
+            else if(directory.equals(modeToDir(SHOW_XML_CONFIG_FILE_CHOOSER)))
+            {
+                mode = SHOW_XML_CONFIG_FILE_CHOOSER;
             }
             Bundle arguments = new Bundle();
             arguments.putString(ExplorerFragment.DIRECTORY, directory);
@@ -142,10 +147,11 @@ public class ExplorerActivity extends AppCompatActivity implements ExplorerFragm
         {
             return "/sdcard/FIRST/blocks/";
         }
-        else
+        else if (mode == 3)
         {
-            return null;
+            return "/sdcard/FIRST/";
         }
+        return null;
     }
 
     @Override

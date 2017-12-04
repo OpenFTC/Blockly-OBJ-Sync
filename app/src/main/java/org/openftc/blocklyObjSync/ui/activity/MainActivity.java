@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity
 {
     Button btnObjTest;
     Button btnBlockyTest;
+    Button btnConfigTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity
 
         btnBlockyTest = (Button) findViewById(R.id.blocklyTestButton);
         btnObjTest = (Button) findViewById(R.id.objTestButton);
+        btnConfigTest = (Button) findViewById(R.id.configTestButton);
 
         btnObjTest.setOnClickListener(new View.OnClickListener()
         {
@@ -65,6 +67,19 @@ public class MainActivity extends AppCompatActivity
             {
                 Bundle bundle = new Bundle();
                 bundle.putInt(ExplorerActivity.KEY_FILE_CHOOSER_MODE, ExplorerActivity.SHOW_BLOCKLY_FILE_CHOOSER);
+                Intent intent = new Intent(MainActivity.this, ExplorerActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+        btnConfigTest.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Bundle bundle = new Bundle();
+                bundle.putInt(ExplorerActivity.KEY_FILE_CHOOSER_MODE, ExplorerActivity.SHOW_XML_CONFIG_FILE_CHOOSER);
                 Intent intent = new Intent(MainActivity.this, ExplorerActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);

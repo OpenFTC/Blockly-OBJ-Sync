@@ -83,6 +83,10 @@ class DirectoryAdapter extends ArrayAdapter<File>
         {
             getObjFiles(files);
         }
+        else if(mode == ExplorerActivity.SHOW_XML_CONFIG_FILE_CHOOSER)
+        {
+            getXmlConfigFiles(files);
+        }
     }
 
     private void getBlocklyFiles(File[] files)
@@ -141,7 +145,7 @@ class DirectoryAdapter extends ArrayAdapter<File>
         }
     }
 
-    private ArrayList<File> getObjFiles(File[] files)
+    private void getObjFiles(File[] files)
     {
         ArrayList<File> javaSourceFiles = new ArrayList<>();
 
@@ -174,8 +178,41 @@ class DirectoryAdapter extends ArrayAdapter<File>
         {
             super.add(file);
         }
+    }
 
-        return javaSourceFiles;
+    private void getXmlConfigFiles(File[] files)
+    {
+        ArrayList<File> xmlConfigFiles = new ArrayList<>();
+
+        Arrays.sort(files, new Comparator<File>()
+        {
+            @Override
+            public int compare(File o1, File o2)
+            {
+                if (o1.isDirectory() == o2.isDirectory())
+                {
+                    return o1.getName().compareToIgnoreCase(o2.getName());
+                }
+                else
+                {
+                    return o1.isDirectory() ? -1 : 1;
+                }
+            }
+        });
+
+        for (File file : files)
+        {
+            String name = file.getName();
+            if (name.endsWith(".xml"))
+            {
+                xmlConfigFiles.add(file);
+            }
+        }
+
+        for (File file : xmlConfigFiles)
+        {
+            super.add(file);
+        }
     }
 
     private String truncateExtension(String filename, String extension)
