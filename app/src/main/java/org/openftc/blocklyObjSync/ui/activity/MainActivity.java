@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import org.openftc.blocklyObjSync.R;
 import org.openftc.blocklyObjSync.backend.Utils;
@@ -13,6 +15,9 @@ import org.openftc.blocklyObjSync.ui.explorer.ExplorerActivity;
 
 public class MainActivity extends AppCompatActivity
 {
+    Button btnObjTest;
+    Button btnBlockyTest;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -36,6 +41,35 @@ public class MainActivity extends AppCompatActivity
              */
             return;
         }
+
+        btnBlockyTest = (Button) findViewById(R.id.blocklyTestButton);
+        btnObjTest = (Button) findViewById(R.id.objTestButton);
+
+        btnObjTest.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Bundle bundle = new Bundle();
+                bundle.putInt(ExplorerActivity.KEY_FILE_CHOOSER_MODE, ExplorerActivity.SHOW_ONBOTJ_FILE_CHOOSER);
+                Intent intent = new Intent(MainActivity.this, ExplorerActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+        btnBlockyTest.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Bundle bundle = new Bundle();
+                bundle.putInt(ExplorerActivity.KEY_FILE_CHOOSER_MODE, ExplorerActivity.SHOW_BLOCKLY_FILE_CHOOSER);
+                Intent intent = new Intent(MainActivity.this, ExplorerActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -65,16 +65,18 @@ public class ExplorerFragment extends ListFragment implements ActionMode.Callbac
         setHasOptionsMenu(true);
 
         String directory = null;
+        int mode = 0;
         if (getArguments() != null)
         {
             directory = getArguments().getString(DIRECTORY);
+            mode = getArguments().getInt(ExplorerActivity.KEY_FILE_CHOOSER_MODE);
         }
         if (directory == null)
         {
             directory = Environment.getExternalStorageDirectory().getPath();
         }
 
-        mDirectoryAdapter = new DirectoryAdapter(directory, getActivity(), this);
+        mDirectoryAdapter = new DirectoryAdapter(directory, getActivity(), this, mode);
         setListAdapter(mDirectoryAdapter);
     }
 

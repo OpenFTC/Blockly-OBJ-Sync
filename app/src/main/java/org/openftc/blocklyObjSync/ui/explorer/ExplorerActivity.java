@@ -48,13 +48,42 @@ public class ExplorerActivity extends AppCompatActivity implements ExplorerFragm
     public static final int SHOW_ONBOTJ_FILE_CHOOSER = 1;
     public static final int SHOW_BLOCKLY_FILE_CHOOSER = 2;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_explorer);
+
+        UI_Utils.colorStatusBar(this);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Choose OpModes to share");
+
+        showDirectory(modeToDir(getIntent().getExtras().getInt(KEY_FILE_CHOOSER_MODE)));
+
+        if (savedInstanceState == null)
+        {
+            Toast.makeText(this, "Hello",
+                           Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void showDirectory(String directory)
     {
         ExplorerFragment explorerFragment = new ExplorerFragment();
         if (directory != null)
         {
+            int mode = 0;
+            if(directory.equals(modeToDir(1)))
+            {
+                mode = SHOW_ONBOTJ_FILE_CHOOSER;
+            }
+            else if(directory.equals(modeToDir(2)))
+            {
+                mode = SHOW_BLOCKLY_FILE_CHOOSER;
+            }
             Bundle arguments = new Bundle();
             arguments.putString(ExplorerFragment.DIRECTORY, directory);
+            arguments.putInt(KEY_FILE_CHOOSER_MODE, mode);
             explorerFragment.setArguments(arguments);
         }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -73,25 +102,6 @@ public class ExplorerActivity extends AppCompatActivity implements ExplorerFragm
             transaction.addToBackStack(null);
         }
         transaction.commit();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_explorer);
-
-        UI_Utils.colorStatusBar(this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Choose OpModes to share");
-
-        showDirectory(modeToDir(getIntent().getExtras().getInt(KEY_FILE_CHOOSER_MODE)));
-
-        if (savedInstanceState == null)
-        {
-            Toast.makeText(this, "Hello",
-                           Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override
@@ -130,7 +140,7 @@ public class ExplorerActivity extends AppCompatActivity implements ExplorerFragm
         }
         else if (mode == 2)
         {
-            return null;
+            return "/sdcard/FIRST/blocks/";
         }
         else
         {
@@ -145,8 +155,8 @@ public class ExplorerActivity extends AppCompatActivity implements ExplorerFragm
     }
 
     /*
-         * The method that's called when the user presses the title back button
-         */
+     * The method that's called when the user presses the title back button
+     */
     @Override
     public boolean onSupportNavigateUp()
     {

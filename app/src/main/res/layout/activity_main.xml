@@ -2,11 +2,18 @@
 <LinearLayout
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
+    <Button
+        android:id="@+id/objTestButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"/>
+        android:text="OBJ Test"/>
 
+    <Button
+        android:id="@+id/blocklyTestButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Blockly test"/>
 </LinearLayout>

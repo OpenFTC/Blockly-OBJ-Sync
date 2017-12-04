@@ -71,25 +71,24 @@ class DirectoryAdapter extends ArrayAdapter<File>
     /**
      * Initialize the list of files
      */
-    private void init()
+    private void init(int mode)
     {
         File[] files = new File(mDirectory).listFiles();
-        ArrayList<File> tests = new ArrayList<>();
 
-        for (int i = 0; i < files.length; i++)
+        if(mode == ExplorerActivity.SHOW_BLOCKLY_FILE_CHOOSER)
         {
-            String name = files[i].getName();
-            if(name.endsWith(".java"))
-            {
-                tests.add(files[i]);
-            }
+            getBlocklyFiles(files);
         }
+        else if(mode == ExplorerActivity.SHOW_ONBOTJ_FILE_CHOOSER)
+        {
+            getObjFiles(files);
+        }
+    }
 
-        if (tests == null)
-        {
-            //mListener.onError(mContext.getString(R.string.activity_explorer_error, mDirectory));
-            return;
-        }
+    private void getBlocklyFiles(File[] files)
+    {
+        ArrayList<BlocklyFileObject> blocklyFileObjects = new ArrayList<>();
+
         Arrays.sort(files, new Comparator<File>()
         {
             @Override
@@ -105,16 +104,86 @@ class DirectoryAdapter extends ArrayAdapter<File>
                 }
             }
         });
-        for (File file : tests)
+
+        ArrayList<File> blkFiles = new ArrayList<>();
+        ArrayList<File> jsFiles = new ArrayList<>();
+
+        for (File file : files)
         {
-            if (mShowHidden || !file.getName().startsWith("."))
+            String name = file.getName();
+            if(name.endsWith(".blk"))
             {
-                add(file);
+                blkFiles.add(file);
             }
+            else if(name.endsWith(".js"))
+            {
+                jsFiles.add(file);
+            }
+        }
+
+        for (File blkFile : blkFiles)
+        {
+            String blkFileNameWithoutExtension = truncateExtension(blkFile.getName(), ".blk");
+            for (File jsFile : jsFiles)
+            {
+                String jsFileNameWithoutExtension = truncateExtension(jsFile.getName(), ".js");
+
+                if(blkFileNameWithoutExtension.equals(jsFileNameWithoutExtension))
+                {
+                    blocklyFileObjects.add(new BlocklyFileObject(blkFile, jsFile));
+                }
+            }
+        }
+
+        for (BlocklyFileObject file : blocklyFileObjects)
+        {
+            super.add(new File("/test/", file.getName()));
         }
     }
 
-    DirectoryAdapter(String directory, Context context, Listener listener)
+    private ArrayList<File> getObjFiles(File[] files)
+    {
+        ArrayList<File> javaSourceFiles = new ArrayList<>();
+
+        Arrays.sort(files, new Comparator<File>()
+        {
+            @Override
+            public int compare(File o1, File o2)
+            {
+                if (o1.isDirectory() == o2.isDirectory())
+                {
+                    return o1.getName().compareToIgnoreCase(o2.getName());
+                }
+                else
+                {
+                    return o1.isDirectory() ? -1 : 1;
+                }
+            }
+        });
+
+        for (File file : files)
+        {
+            String name = file.getName();
+            if (name.endsWith(".java"))
+            {
+                javaSourceFiles.add(file);
+            }
+        }
+
+        for (File file : javaSourceFiles)
+        {
+            super.add(file);
+        }
+
+        return javaSourceFiles;
+    }
+
+    private String truncateExtension(String filename, String extension)
+    {
+        return filename.substring(0, filename.length() - extension.length());
+    }
+
+    DirectoryAdapter(String directory, Context context, Listener listener, int mode)
     {
         super(context, R.layout.view_simple_list_item_explorer, android.R.id.text1);
         mContext = context;
@@ -125,17 +194,7 @@ class DirectoryAdapter extends ArrayAdapter<File>
         mContext.getTheme().resolveAttribute(R.attr.colorControlNormal, typedValue, true);
         mColor = typedValue.data;
 
-        init();
-    }
-
-    /**
-     * Enable or disable showing of hidden items
-     */
-    void toggleHidden(boolean showHidden)
-    {
-        mShowHidden = showHidden;
-        clear();
-        init();
+        init(mode);
     }
 
     /**
