@@ -58,15 +58,18 @@ public class MainActivity extends AppCompatActivity
         }
         else if(id == R.id.preferencesMenuItem)
         {
-            /*Bundle bundle = new Bundle();
-            bundle.putInt(ExplorerActivity.KEY_FILE_CHOOSER_MODE, ExplorerActivity.SHOW_ONBOTJ_FILE_CHOOSER);
-            Intent intent = new Intent(this, ExplorerActivity.class);
-            intent.putExtras(bundle);
-            startActivity(intent);*/
-
             Intent intent = new Intent(this, PreferencesActivity.class);
             startActivity(intent);
 
+            return true;
+        }
+        else if(id == R.id.explorerTestMenuItem)
+        {
+            Bundle bundle = new Bundle();
+            bundle.putInt(ExplorerActivity.KEY_FILE_CHOOSER_MODE, ExplorerActivity.SHOW_ONBOTJ_FILE_CHOOSER);
+            Intent intent = new Intent(this, ExplorerActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
             return true;
         }
 

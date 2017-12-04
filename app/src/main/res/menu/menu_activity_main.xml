@@ -12,4 +12,9 @@
         app:showAsAction="never"
         android:title="Preferences" />
 
+    <item
+        android:id="@+id/explorerTestMenuItem"
+        app:showAsAction="never"
+        android:title="Explorer test" />
+
 </menu>

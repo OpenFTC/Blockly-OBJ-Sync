@@ -74,18 +74,18 @@ class DirectoryAdapter extends ArrayAdapter<File>
     private void init()
     {
         File[] files = new File(mDirectory).listFiles();
-        String[] tests = new String[files.length];
+        ArrayList<File> tests = new ArrayList<>();
 
         for (int i = 0; i < files.length; i++)
         {
             String name = files[i].getName();
             if(name.endsWith(".java"))
             {
-                tests[i] = name.substring(0, name.length() - 5);
+                tests.add(files[i]);
             }
         }
 
-        if (files == null)
+        if (tests == null)
         {
             //mListener.onError(mContext.getString(R.string.activity_explorer_error, mDirectory));
             return;
@@ -105,7 +105,7 @@ class DirectoryAdapter extends ArrayAdapter<File>
                 }
             }
         });
-        for (File file : files)
+        for (File file : tests)
         {
             if (mShowHidden || !file.getName().startsWith("."))
             {
