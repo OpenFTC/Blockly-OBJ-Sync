@@ -6,20 +6,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Button
-        android:id="@+id/objTestButton"
+        android:id="@+id/discoverPeersTestButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="OBJ Test"/>
+        android:text="Discover peers test"/>
 
     <Button
-        android:id="@+id/blocklyTestButton"
+        android:id="@+id/addFileToQueueButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Blockly test"/>
-
-    <Button
-        android:id="@+id/configTestButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Config test"/>
+        android:text="Add file to queue"/>
 </LinearLayout>

@@ -22,13 +22,10 @@ public class UI_Utils
         builder = new AlertDialog.Builder(activity);
         builder.setCancelable(false);
 
-        String test = "<font color='#FF0000'>This device does not have the FTC Robot Controller app installed.</font><br><br>This app is useless without it. If you have no idea what the aforementioned app is, then this app will probably be useless to you.";
-
         builder.setTitle("Ruh-roh!")
-                .setMessage(Html.fromHtml(test))
+                .setMessage(Html.fromHtml(activity.getString(R.string.msg_rc_not_installed)))
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // continue with delete
                         activity.finish();
 
                     }

@@ -48,6 +48,7 @@ public class ExplorerActivity extends AppCompatActivity implements ExplorerFragm
     public static final int SHOW_ONBOTJ_FILE_CHOOSER = 1;
     public static final int SHOW_BLOCKLY_FILE_CHOOSER = 2;
     public static final int SHOW_XML_CONFIG_FILE_CHOOSER = 3;
+    private int mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -56,15 +57,27 @@ public class ExplorerActivity extends AppCompatActivity implements ExplorerFragm
         setContentView(R.layout.activity_explorer);
 
         UI_Utils.colorStatusBar(this);
+        mode = getIntent().getExtras().getInt(KEY_FILE_CHOOSER_MODE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Choose OpModes to share");
 
-        showDirectory(modeToDir(getIntent().getExtras().getInt(KEY_FILE_CHOOSER_MODE)));
+        if(mode == 1)
+        {
+            getSupportActionBar().setTitle("Select OBJ OpModes");
+        }
+        else if(mode == 2)
+        {
+            getSupportActionBar().setTitle("Select Blockly OpModes");
+        }
+        else if(mode == 3)
+        {
+            getSupportActionBar().setTitle("Select XML Config Files");
+        }
+
+        showDirectory(modeToDir(mode));
 
         if (savedInstanceState == null)
         {
-            Toast.makeText(this, "Hello",
-                           Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Long press for multi-select", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -73,19 +86,6 @@ public class ExplorerActivity extends AppCompatActivity implements ExplorerFragm
         ExplorerFragment explorerFragment = new ExplorerFragment();
         if (directory != null)
         {
-            int mode = 0;
-            if(directory.equals(modeToDir(SHOW_ONBOTJ_FILE_CHOOSER)))
-            {
-                mode = SHOW_ONBOTJ_FILE_CHOOSER;
-            }
-            else if(directory.equals(modeToDir(SHOW_BLOCKLY_FILE_CHOOSER)))
-            {
-                mode = SHOW_BLOCKLY_FILE_CHOOSER;
-            }
-            else if(directory.equals(modeToDir(SHOW_XML_CONFIG_FILE_CHOOSER)))
-            {
-                mode = SHOW_XML_CONFIG_FILE_CHOOSER;
-            }
             Bundle arguments = new Bundle();
             arguments.putString(ExplorerFragment.DIRECTORY, directory);
             arguments.putInt(KEY_FILE_CHOOSER_MODE, mode);

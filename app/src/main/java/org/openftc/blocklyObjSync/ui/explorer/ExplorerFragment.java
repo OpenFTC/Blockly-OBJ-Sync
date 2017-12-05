@@ -144,7 +144,7 @@ public class ExplorerFragment extends ListFragment implements ActionMode.Callbac
     {
         switch (item.getItemId())
         {
-            case R.id.action_send:
+            case R.id.action_add_to_queue:
                 mListener.onSendUris(mDirectoryAdapter.getUris());
                 mActionMode.finish();
                 return true;
